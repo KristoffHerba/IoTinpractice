@@ -1,0 +1,36 @@
+import time
+import machine
+for i in range(20):
+	led.value(1)
+	time.sleep(1)
+	led.value(0)
+	time.sleep(1)
+
+import time
+import machine
+led = machine.Pin(2, machine.Pin.OUT)
+
+def led_aansturen (ledblinks):
+	for i in range(ledblinks):
+		led.value(1)
+		time.sleep(1)
+		led.value(0)
+		time.sleep(1)
+
+def do_connect():
+    import network
+    sta_if = network.WLAN(network.STA_IF)
+    if not sta_if.isconnected():
+        print('connecting to network...')
+        sta_if.active(True)
+        sta_if.connect('bvnetwerk","xLbCMeZtac')
+        while not sta_if.isconnected():
+            pass
+    print('network config:', sta_if.ifconfig())
+
+import machine
+from machine import I2C
+bus = I2C(1, scl = machine.Pin(22), sda = machine.Pin(21))
+from bmp280 import *
+bmp = BMP280(bus)
+bmp.temperature
